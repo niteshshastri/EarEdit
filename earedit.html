@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EarEdit Premium - Hear What Matters</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --cream: #F0EAD2;
+            --light-green: #DDE5B6;
+            --olive: #ADC178;
+            --brown: #A98467;
+            --dark-brown: #6C584C;
+            --text-dark: #333333;
+            --text-light: #F8F9FA;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        h1 {
+            font-family: Waltograph;
+        }
+
+        /* Premium Product Showcase */
+        .product-showcase {
+            background: linear-gradient(135deg, var(--dark-brown), var(--brown));
+            color: var(--text-light);
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .showcase-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .showcase-header {
+            margin-bottom: 3rem;
+        }
+
+        .showcase-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: var(--light-green);
+        }
+
+        .showcase-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            color: var(--cream);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: rgba(221, 229, 182, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(221, 229, 182, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-image {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            background-color: var(--cream);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--olive);
+            color: var(--text-dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            text-align: left;
+        }
+
+        .product-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--light-green);
+        }
+
+        .product-info p {
+            opacity: 0.9;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            color: var(--cream);
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--light-green);
+            margin-bottom: 1rem;
+        }
+
+        .product-cta {
+            display: inline-block;
+            background: var(--olive);
+            color: var(--text-dark);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .product-cta:hover {
+            background: var(--light-green);
+            transform: translateY(-2px);
+        }
+
+        /* Header */
+        header {
+            background: var(--dark-brown);
+            color: var(--text-light);
+            padding: 2rem 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(221, 229, 182, 0.2);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: var(--light-green);
+        }
+
+        .logo i {
+            color: var(--light-green);
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            letter-spacing: 0.5px;
+            color: var(--cream);
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--brown);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 1.2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--cream);
+            font-weight: 500;
+            transition: color 0.3s;
+            letter-spacing: 0.5px;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover {
+            color: var(--light-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(108, 88, 76, 0.8), rgba(108, 88, 76, 0.8)), url('https://images.unsplash.com/photo-1590658268037-6bf12165a8df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--light-green);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: var(--cream);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--olive);
+            color: var(--text-dark);
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--light-green);
+            border-color: var(--light-green);
+            transform: translateY(-3px);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: px;
+
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark-brown);
+            font-size: 2.2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--olive);
+            margin: 1rem auto 0;
+        }
+
+        /* Feature Cards */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--light-green);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-img {
+            height: 200px;
+            background-color: var(--cream);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .feature-content {
+            padding: 1.5rem;
+        }
+
+        .feature-content h3 {
+            margin-bottom: 1rem;
+            color: var(--dark-brown);
+        }
+
+        /* Campaign Section */
+        .campaign-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .campaign-central {
+            background-color: var(--light-green);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .campaign-central h3 {
+            color: var(--dark-brown);
+            margin-bottom: 1rem;
+        }
+
+        .campaign-spokes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .spoke-card {
+            background-color: var(--cream);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--olive);
+        }
+
+        .spoke-card h3 {
+            color: var(--dark-brown);
+            margin-bottom: 1rem;
+        }
+
+        /* Sound Simulator */
+        .sound-simulator {
+            background-color: var(--light-green);
+            padding: 3rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .simulator-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 2rem auto;
+            background: var(--cream);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .sound-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--olive);
+        }
+
+        .sound-option:last-child {
+            border-bottom: none;
+        }
+
+        /* UGC Gallery */
+        .ugc-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .ugc-item {
+            background-color: var(--light-green);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .ugc-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .ugc-user {
+            font-weight: bold;
+            color: var(--dark-brown);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Shop Section */
+        #shop {
+            background: linear-gradient(135deg, var(--dark-brown), var(--brown));
+            color: var(--text-light);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        #shop .section-title {
+            color: var(--light-green);
+        }
+
+        #shop .section-title::after {
+            background: var(--light-green);
+        }
+
+        #shop p {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: var(--cream);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-brown);
+            color: var(--text-light);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--cream);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--light-green);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-icons a {
+            color: var(--cream);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--light-green);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .product-grid,
+            .features,
+            .campaign-spokes {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Utility Classes */
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content-wrapper">
+        <!-- New Premium Product Showcase Section -->
+        <section class="product-showcase">
+            <div class="showcase-container">
+                <div class="showcase-header">
+                    <h1>EarEdit</h1>
+                    <p>Experience sound like never before with our premium adaptive noise-filtering technology</p>
+                </div>
+
+                <div class="product-grid">
+                    <!-- Product 1 -->
+                    <div class="product-card">
+                        <div class="product-image"
+                            style="background-image: url('https://m.media-amazon.com/images/I/51kZDUtVqqL._AC_UF894,1000_QL80_.jpg');">
+                            <span class="product-badge">Best Seller</span>
+                        </div>
+                        <div class="product-info">
+                            <h3>EarEdit Pro </h3>
+                            <p>Flagship model with advanced AI sound filtering and 30hr battery life</p>
+                            <div class="product-price">$299</div>
+                            <a href="#shop" class="product-cta">View Details</a>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="product-card">
+                        <div class="product-image"
+                            style="background-image: url('https://i.pinimg.com/736x/3f/3a/c5/3f3ac557933fa7fcd9ebb0fc0bce3ab8.jpg');">
+                            <span class="product-badge">New</span>
+                        </div>
+                        <div class="product-info">
+                            <h3>EarEdit Air</h3>
+                            <p>Ultra-lightweight with seamless device switching and voice assistant</p>
+                            <div class="product-price">$249</div>
+                            <a href="#shop" class="product-cta">View Details</a>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="product-card">
+                        <div class="product-image"
+                            style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpB6B6hyYIzDMe-cFlUY78Ro_NV71sVJhS6Q&s');">
+                            <span class="product-badge">Limited</span>
+                        </div>
+                        <div class="product-info">
+                            <h3>EarEdit X </h3>
+                            <p>Professional-grade audio with enhanced bass and crystal clear mids</p>
+                            <div class="product-price">$349</div>
+                            <a href="#shop" class="product-cta">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Navigation -->
+        <nav>
+            <ul>
+                <li><a href="#product">The Product</a></li>
+                <li><a href="#campaign">Our Campaign</a></li>
+                <li><a href="#simulator">Sound Simulator</a></li>
+                <li><a href="#ugc">#MySoundscape</a></li>
+                <li><a href="#shop">Shop Now</a></li>
+            </ul>
+        </nav>
+
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Take Control of Your Sound Environment</h1>
+                <p>EarEdit's revolutionary real-time sound filtering technology lets you mute the world around you -
+                    selectively.</p>
+                <a href="#simulator" class="btn">Try It Live</a>
+            </div>
+        </div>
+
+        <!-- Product Features Section -->
+        <section id="product">
+            <h2 class="section-title">The EarEdit Experience</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-img"
+                        style="background-image: url('https://images.unsplash.com/photo-1545127398-5aae47194b22?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                    </div>
+                    <div class="feature-content">
+                        <h3>Product Inspiration</h3>
+                        <p>Born from the frustration of noisy open offices and the needs of neurodivergent individuals,
+                            EarEdit gives you control over your auditory environment like never before.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-img"
+                        style="background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                    </div>
+                    <div class="feature-content">
+                        <h3>How It Works</h3>
+                        <p>Advanced AI identifies and filters specific sound frequencies in real-time. Want to keep
+                            conversation but lose background noise? Just adjust your personalized sound profile.</p>
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+
+        <!-- Campaign Section -->
+        <section id="campaign">
+            <h2 class="section-title">"Hear What Matters"</h2>
+            <div class="campaign-grid">
+                <div class="campaign-central">
+                    <h3>EarEdit Sound Personalization Campaign</h3>
+                    <p>Our central message: In a world full of noise, you deserve to hear only what matters to you.</p>
+                </div>
+
+
+            </div>
+        </section>
+
+        <!-- Sound Simulator Section -->
+        <section id="simulator" class="sound-simulator">
+            <h2 class="section-title">Try Our Live Sound Simulator</h2>
+            <p>Experience how EarEdit can transform your sound environment in real-time</p>
+
+            <div class="simulator-controls">
+                <div class="sound-option">
+                    <input type="checkbox" id="traffic" checked>
+                    <label for="traffic">Traffic Noise</label>
+                </div>
+
+                <div class="sound-option">
+                    <input type="checkbox" id="office" checked>
+                    <label for="office">Office Chatter</label>
+                </div>
+
+                <div class="sound-option">
+                    <input type="checkbox" id="construction" checked>
+                    <label for="construction">Construction Sounds</label>
+                </div>
+
+                <div class="sound-option">
+                    <input type="checkbox" id="crying" checked>
+                    <label for="crying">Baby Crying</label>
+                </div>
+
+                <div class="sound-option">
+                    <input type="checkbox" id="music" checked>
+                    <label for="music">Background Music</label>
+                </div>
+
+                <button class="btn">Apply EarEdit Filter</button>
+            </div>
+
+            <p>This is just a simulation. The actual EarEdit experience is even more customizable!</p>
+        </section>
+
+        <!-- UGC Section -->
+        <section id="ugc">
+            <h2 class="section-title">#MySoundscape Community</h2>
+            <p>We asked our users: "Which sound would you remove from your world?" Here are some responses:</p>
+
+            <div class="ugc-gallery">
+                <div class="ugc-item">
+                    <div class="ugc-user">Prisha Metha</div>
+                    <p>"The constant hum of my dorm fridge - it's so distracting when I'm trying to focus!"</p>
+                </div>
+
+                <div class="ugc-item">
+                    <div class="ugc-user">Ridhima Mittal</div>
+                    <p>"My neighbor's dog barking unpredictably. It completely derails my train of thought."</p>
+                </div>
+
+                <div class="ugc-item">
+                    <div class="ugc-user">Aaliya Sayyed</div>
+                    <p>"The cacophony of kid's YouTube videos playing simultaneously from different devices!"</p>
+                </div>
+
+                <div class="ugc-item">
+                    <div class="ugc-user">Aditya Agarwal</div>
+                    <p>"Sirens at night when I'm trying to sleep. The sudden loudness is jarring."</p>
+                </div>
+
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="#" class="btn">Share Your #MySoundscape</a>
+            </div>
+        </section>
+
+        <!-- Shop Section -->
+        <section id="shop">
+            <h2 class="section-title">Ready to Hear What Matters?</h2>
+            <p>Choose the EarEdit model that fits your lifestyle and take control of your sound environment today.</p>
+            <a href="#" class="btn" style="background-color: var(--light-green); color: var(--dark-brown);">Shop EarEdit
+                Now</a>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="logo">EarEdit</div>
+            <p>Hear What Matters</p>
+
+            <div class="footer-links">
+                <a href="#">About Us</a>
+                <a href="#">Technology</a>
+                <a href="#">Blog</a>
+                <a href="#">Support</a>
+                <a href="#">Contact</a>
+            </div>
+
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+
+            <p>&copy; 2025 EarEdit. All rights reserved.</p>
+        </footer>
+    </div> <!-- End content-wrapper -->
+
+    <script>
+        // Simple animation for product cards on scroll
+        document.addEventListener('DOMContentLoaded', function () {
+            const productCards = document.querySelectorAll('.product-card');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            productCards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+
+</html>
